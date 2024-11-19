@@ -78,7 +78,7 @@
             "production": {
               "buildTarget": "productivity-planner:build:production"
             },
-            "development": {
+            "staging": {
               "buildTarget": "productivity-planner:build:staging"
             }
           },
