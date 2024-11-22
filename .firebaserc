@@ -1,5 +1,10 @@
 {
   "projects": {
-    "default": "productivity-planner-staging01"
-  }
+    "default": "productivity-planner-dev-a833b",
+    "development": "productivity-planner-dev-a833b",
+    "staging": "productivity-planner-staging01",
+    "production": "productivity-planner-prod01"
+  },
+  "targets": {},
+  "etags": {}
 }
