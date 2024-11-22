@@ -4,6 +4,7 @@
     "indexes": "firestore.indexes.json"
   },
   "hosting": {
+
     "public": "/dist/productivity-planner/browser",
     "ignore": [
       "firebase.json",
