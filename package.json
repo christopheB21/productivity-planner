@@ -8,6 +8,7 @@
     "build:development": "firebase use development && ng build --configuration=development",
     "build:staging": "firebase use staging && ng build --configuration=staging",
     "build:production": "firebase use production && ng build --configuration=production",
+
     "watch": "ng build --watch --configuration staging",
     "test": "ng test",
     "test:ci": "ng test --watch=false --browsers=ChromeHeadless",
