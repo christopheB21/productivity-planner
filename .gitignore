@@ -42,7 +42,10 @@ testem.log
 Thumbs.db
 
 # Environments
-/src/Environments
+/src/environments
+
+#firbase cache
+.firebase
 
 # Cache firebase
 .firebase/
