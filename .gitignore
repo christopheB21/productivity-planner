@@ -47,6 +47,3 @@ Thumbs.db
 #firbase cache
 .firebase
 
-# Cache firebase
-.firebase/
-
