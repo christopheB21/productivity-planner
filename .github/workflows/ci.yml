@@ -56,8 +56,8 @@ jobs:
         run: 
          mkdir environments
          echo "Creating production environment file..."
-         echo -n "export const PRODUCTION_ENVIRONMENT = " > environments/environments.ts
-         echo "{{ secrets.PRODUCTION_ENVIRONMENT}}" >> environments/environments.ts
+         echo -n "export const PRODUCTION_ENVIRONMENT = " > environments/environment.ts
+         echo "{{ secrets.PRODUCTION_ENVIRONMENT}}" >> environments/environment.ts
 
       # Build
       - name: Build
