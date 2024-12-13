@@ -40,10 +40,6 @@ jobs:
       - name: Lint
         run: npm run lint
 
-      # Tests
-      - name: Test
-        run: npm run test:ci
-
       # Set environment secrets
       - name: Create environment file
         run: 
@@ -51,6 +47,10 @@ jobs:
          echo "Creating production environment file..."
          echo -n "export const PRODUCTION_ENVIRONMENT = " > environments/environment.ts
          echo "{{ secrets.PRODUCTION_ENVIRONMENT}}" >> environments/environment.ts
+
+         # Tests
+      - name: Test
+        run: npm run test:ci
 
       # Build
       - name: Build
