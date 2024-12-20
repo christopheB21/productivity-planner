@@ -47,7 +47,7 @@ jobs:
          echo "Creating production environment file..."
          echo "${{ secrets.PRODUCTION_ENVIRONMENT}}" >> environments/environment.ts
 
-         # Tests
+      # Tests
       - name: Test
         run: npm run test
 
