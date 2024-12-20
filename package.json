@@ -10,7 +10,7 @@
     "build:production": "ng build --configuration=production",
     "watch": "ng build --watch --configuration development",
     "test": "jest",
-    "test:coverage": "jset --coverage",
+    "test:coverage": "jest --coverage",
     "lint": "ng lint",
     "deploy:development": "npm run build:development && firebase use development && firebase deploy",
     "deploy:staging": "npm run build:staging && firebase use staging && firebase deploy",
