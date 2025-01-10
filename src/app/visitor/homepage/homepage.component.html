@@ -6,4 +6,6 @@
       <button class="btn btn-primary btn-lg" href="#">Terminez vos journées en héros</button>
     </p>
 </div>
-<app-homepage-feature-card-list [cardList]="cardList"></app-homepage-feature-card-list>
+@if (cardList.length !== 0){
+  <app-homepage-feature-card-list [cardList]="cardList"></app-homepage-feature-card-list>
+}
