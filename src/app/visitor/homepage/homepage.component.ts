@@ -27,4 +27,8 @@ export class HomepageComponent {
       icon: ""
     }
   ]
+
+  onBannerClicked() {
+    console.log("Banner clicked");
+  }
 }

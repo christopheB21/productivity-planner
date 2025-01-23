@@ -9,8 +9,8 @@ import { ChangeDetectionStrategy, Component, input, output } from '@angular/core
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HomebannerDumbComponent {
-  title = input.required<string>();
-  description = input.required<string>();
-  button = input.required<string>();
-  clicked = output<void>();
+  readonly title = input.required<string>();
+  readonly description = input.required<string>();
+  readonly button = input.required<string>();
+  readonly clicked = output<void>();
 }
