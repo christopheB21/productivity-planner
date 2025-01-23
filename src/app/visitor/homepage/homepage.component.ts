@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { HomepageFeatureCardListDumbComponent } from './homepage-feature-card-list/homepage-feature-card-list.dumb.component';
 import { CardList } from '../../core/Card';
+import { HomebannerDumbComponent } from "./homebanner/homebanner.dumb.component";
 
 @Component({
   standalone: true,
-  imports: [HomepageFeatureCardListDumbComponent],
+  imports: [HomepageFeatureCardListDumbComponent, HomebannerDumbComponent],
   templateUrl: './homepage.component.html',
   styleUrl: './homepage.component.scss'
 })
