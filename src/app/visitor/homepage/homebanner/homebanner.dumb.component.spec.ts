@@ -29,9 +29,9 @@ describe('HomebannerDumbComponent', () => {
   });
 
   beforeEach(()=> {
-    title = debugElement.query(By.css('[data-testid=banner-title]'));   
-    description = debugElement.query(By.css('[data-testid=banner-description]'));   
-    button = debugElement.query(By.css('[data-testid=banner-button]'));   
+    title = debugElement.query(By.css('[data-testid="banner-title"]'));   
+    description = debugElement.query(By.css('[data-testid="banner-description"]'));   
+    button = debugElement.query(By.css('[data-testid="banner-button"]'));   
   })
 
   it('should create', () => {
@@ -50,5 +50,9 @@ describe('HomebannerDumbComponent', () => {
     expect(button.nativeElement.textContent).toContain('expectedButton');
   });
   
-  it.todo('should trigger event on button click');
+  it('should trigger event on button click', () => {
+    jest.spyOn(component.clicked, 'emit');
+    button.nativeElement.click();
+    expect(component.clicked.emit).toHaveBeenNthCalledWith(1);
+  });
 });

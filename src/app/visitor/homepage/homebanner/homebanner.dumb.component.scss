@@ -5,3 +5,14 @@
     height: 40vh;
     position: relative;
   }
+
+  .card-container { 
+    width: auto;
+  
+    .card { 
+      position: relative;
+      color: white;
+      border-color: transparent !important;
+      background-color: transparent !important; 
+    }
+  }
