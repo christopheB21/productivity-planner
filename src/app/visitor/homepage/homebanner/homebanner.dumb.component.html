@@ -3,6 +3,6 @@
     <p class="lead">{{ description() }}</p>
     <hr class="my-4">
     <p class="lead">
-      <button class="btn btn-primary btn-lg" href="#">{{ button() }}</button>
+      <button type="button" class="btn btn-primary btn-lg" (click)="clicked.emit()">{{ button() }}</button>
     </p>
 </div>

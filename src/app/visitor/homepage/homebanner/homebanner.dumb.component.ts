@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input, output } from '@angular/core';
 
 @Component({
   selector: 'app-homebanner',
@@ -12,4 +12,5 @@ export class HomebannerDumbComponent {
   title = input.required<string>();
   description = input.required<string>();
   button = input.required<string>();
+  clicked = output<void>();
 }
