@@ -10,19 +10,19 @@ import { HomebannerDumbComponent } from "./homebanner/homebanner.dumb.component"
 export class HomepageComponent {
   cardList = signal([
     {
-      title: "carte 1",
-      description: "test de card 1",
-      icon: ""
+      title: "Planifier sa semaine",
+      description: "Visibilité sur les 7 prochains jours",
+      icon: "bi bi-star fs-1"
     },
     {
-      title: "carte 2",
-      description: "test de card 2",
-      icon: ""
+      title: "Atteindre ses objectifs",
+      description: "Priorisation des tâches",
+      icon: "bi bi-star fs-1"
     },
     {
-      title: "carte 3",
-      description: "test de card 3",
-      icon: ""
+      title: "Analyser sa productivité",
+      description: "Visualiser le travail accompli",
+      icon: "bi bi-star fs-1"
     }
   ])
 
