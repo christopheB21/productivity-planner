@@ -1,8 +1,8 @@
 <div class="jumbotron">
-    <h1 class="display-4">{{ title() }}</h1>
-    <p class="lead">{{ description() }}</p>
+    <h1 class="display-4" data-testid="banner-title">{{ title() }}</h1>
+    <p class="lead" data-testid="banner-description">{{ description() }}</p>
     <hr class="my-4">
     <p class="lead">
-      <button type="button" class="btn btn-primary btn-lg" (click)="clicked.emit()">{{ button() }}</button>
+      <button data-testid="banner-button"type="button" class="btn btn-primary btn-lg" (click)="clicked.emit()">{{ button() }}</button>
     </p>
 </div>
