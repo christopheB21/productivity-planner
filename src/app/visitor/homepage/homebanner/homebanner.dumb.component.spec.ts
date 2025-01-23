@@ -21,5 +21,8 @@ describe('HomebannerDumbComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  
+  it.todo('should disply title');
+  it.todo('should display description');
+  it.todo('should display button');
+  it.todo('should trigger event on button click');
 });
