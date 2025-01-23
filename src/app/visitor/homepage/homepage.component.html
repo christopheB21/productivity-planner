@@ -4,6 +4,6 @@
   button="Terminez vos journées en héros"
   (clicked)="onBannerClicked()"
   />
-@if (cardList.length !== 0){
-  <app-homepage-feature-card-list [cardList]="cardList"></app-homepage-feature-card-list>
+@if (cardList().length !== 0){
+  <app-homepage-feature-card-list [cardList]="cardList()"></app-homepage-feature-card-list>
 }

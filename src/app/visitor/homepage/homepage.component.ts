@@ -1,8 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { HomepageFeatureCardListDumbComponent } from './homepage-feature-card-list/homepage-feature-card-list.dumb.component';
-import { CardList } from '../../core/Card';
 import { HomebannerDumbComponent } from "./homebanner/homebanner.dumb.component";
-
 @Component({
   standalone: true,
   imports: [HomepageFeatureCardListDumbComponent, HomebannerDumbComponent],
@@ -10,7 +8,7 @@ import { HomebannerDumbComponent } from "./homebanner/homebanner.dumb.component"
   styleUrl: './homepage.component.scss'
 })
 export class HomepageComponent {
-  cardList: CardList = [
+  cardList = signal([
     {
       title: "carte 1",
       description: "test de card 1",
@@ -26,7 +24,7 @@ export class HomepageComponent {
       description: "test de card 3",
       icon: ""
     }
-  ]
+  ])
 
   onBannerClicked() {
     console.log("Banner clicked");
