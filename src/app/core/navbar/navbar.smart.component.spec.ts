@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { HeaderSmartComponent } from './navbar.smart.component';
+import { NavbarSmartComponent } from './navbar.smart.component';
 
-describe('HeaderSmartComponent', () => {
-  let component: HeaderSmartComponent;
-  let fixture: ComponentFixture<HeaderSmartComponent>;
+describe('NavbarSmartComponent', () => {
+  let component: NavbarSmartComponent;
+  let fixture: ComponentFixture<NavbarSmartComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [HeaderSmartComponent]
+      imports: [NavbarSmartComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(HeaderSmartComponent);
+    fixture = TestBed.createComponent(NavbarSmartComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
@@ -23,7 +23,7 @@ describe('HeaderSmartComponent', () => {
 
   
   it('should render header title', () => {
-    const fixture = TestBed.createComponent(HeaderSmartComponent);
+    const fixture = TestBed.createComponent(NavbarSmartComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
     expect(compiled.querySelector('a')?.textContent).toContain('Awesome List');
