@@ -1,13 +1,12 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
-  selector: 'app-header',
+  selector: 'app-navbar',
   standalone: true,
   imports: [],
-  templateUrl: './header.smart.component.html',
-  styleUrl: './header.smart.component.scss',
+  templateUrl: './navbar.smart.component.html',
+  styleUrl: './navbar.smart.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class HeaderSmartComponent {
-
+export class NavbarSmartComponent {
 }

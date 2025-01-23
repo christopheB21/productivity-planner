@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { HeaderSmartComponent } from './header/header.smart.component';
+import { NavbarSmartComponent } from './core/navbar/navbar.smart.component';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, HeaderSmartComponent],
+  imports: [RouterOutlet, NavbarSmartComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })

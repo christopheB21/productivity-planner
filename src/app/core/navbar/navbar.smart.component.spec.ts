@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { HeaderSmartComponent } from './header.smart.component';
+import { HeaderSmartComponent } from './navbar.smart.component';
 
 describe('HeaderSmartComponent', () => {
   let component: HeaderSmartComponent;
