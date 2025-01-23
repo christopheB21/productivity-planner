@@ -12,17 +12,17 @@ export class HomepageComponent {
     {
       title: "Planifier sa semaine",
       description: "Visibilité sur les 7 prochains jours",
-      icon: "bi bi-star fs-1"
+      icon: "bi bi-calendar3 fs-1"
     },
     {
       title: "Atteindre ses objectifs",
       description: "Priorisation des tâches",
-      icon: "bi bi-star fs-1"
+      icon: "bi bi-trophy fs-1"
     },
     {
       title: "Analyser sa productivité",
       description: "Visualiser le travail accompli",
-      icon: "bi bi-star fs-1"
+      icon: "bi bi-graph-up-arrow fs-1"
     }
   ])
 
