@@ -10,4 +10,6 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 })
 export class HomebannerDumbComponent {
   title = input.required<string>();
+  description = input.required<string>();
+  button = input.required<string>();
 }
