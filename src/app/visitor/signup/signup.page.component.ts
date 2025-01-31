@@ -1,5 +1,5 @@
 import { Component, computed, signal } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgModel } from '@angular/forms';
 
 @Component({
   standalone: true,
@@ -19,5 +19,9 @@ export class SignupPageComponent {
 
   onSubmit() {
     console.log('Form submitted');
+  }
+
+  onTouchedOrDirty(fieldName: NgModel, error: string) {
+    return (fieldName.dirty || fieldName.touched) && fieldName.hasError(error)
   }
 }

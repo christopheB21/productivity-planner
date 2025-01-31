@@ -18,13 +18,13 @@
               pattern="^[a-zA-Z]*$"
             />
           </div>
-          @if((nameField.dirty || nameField.touched) && nameField.hasError('required')) {
+          @if(this.onTouchedOrDirty(nameField, 'required')) {
           <div class="form-text text-danger">Name is required.</div>
           }
-          @if((nameField.dirty || nameField.touched) && nameField.hasError('minlength')) {
+          @if(this.onTouchedOrDirty(nameField, 'minlength')) {
             <div class="form-text text-danger">Minimum of 3 characters</div>
           }
-          @if((nameField.dirty || nameField.touched) && nameField.hasError('pattern')) {
+          @if(this.onTouchedOrDirty(nameField, 'pattern')) {
             <div class="form-text text-danger">Letters only are available</div>
           } 
           <!-- EMAIL -->
@@ -41,10 +41,10 @@
               required
             />
           </div>
-          @if((emailField.dirty || emailField.touched) && emailField.hasError('required')) {
+          @if(this.onTouchedOrDirty(emailField,'required')) {
             <div class="form-text text-danger">Email is required.</div>
           }
-          @if(emailField.dirty && emailField.hasError('type')) {
+          @if(this.onTouchedOrDirty(emailField,'type')) {
             <div class="form-text text-danger">This is not a valid email.</div>
           }
           <!-- PASSWORD -->
