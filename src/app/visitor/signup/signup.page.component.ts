@@ -17,6 +17,13 @@ export class SignupPageComponent {
     () => this.password() === this.confirmPassword()
   );
 
+  readonly isValidEmail = computed(
+    () => {
+      const emailReg = new RegExp(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
+      return emailReg.test(this.email());
+    }
+  )
+
   onSubmit() {
     console.log('Form submitted');
   }
@@ -25,13 +32,4 @@ export class SignupPageComponent {
     return (fieldName.dirty || fieldName.touched) && fieldName.hasError(error)
   }
 
-  isValidEmail(email: string):boolean {
-    const emailReg = new RegExp(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
-    const valid = emailReg.test(email);
-    if(!valid) {
-        return false;
-    } else {
-        return true;
-    }
-  }
 }

@@ -44,7 +44,7 @@
           @if(this.onTouchedOrDirty(emailField,'required')) {
             <div class="form-text text-danger">Email is required.</div>
           }
-          @if(emailField.dirty && !this.isValidEmail(email())) {
+          @if(emailField.dirty && !this.isValidEmail()) {
             <div class="form-text text-danger">This is not a valid email address</div>
           }
           @if(this.onTouchedOrDirty(emailField,'type')) {
