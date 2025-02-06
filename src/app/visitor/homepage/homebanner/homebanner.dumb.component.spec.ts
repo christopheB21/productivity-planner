@@ -1,9 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { HomebannerDumbComponent } from './homebanner.dumb.component';
 import { DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
-import { RouterLink, RouterLinkActive } from '@angular/router';
 
 describe('HomebannerDumbComponent', () => {
   let component: HomebannerDumbComponent;
@@ -16,7 +14,7 @@ describe('HomebannerDumbComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [HomebannerDumbComponent, RouterLink, RouterLinkActive]
+      imports: [HomebannerDumbComponent]
     })
     .compileComponents();
 

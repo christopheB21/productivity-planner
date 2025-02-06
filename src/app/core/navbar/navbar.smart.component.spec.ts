@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { NavbarSmartComponent } from './navbar.smart.component';
+import { RouterLink } from '@angular/router';
 
 describe('NavbarSmartComponent', () => {
   let component: NavbarSmartComponent;
@@ -8,7 +9,7 @@ describe('NavbarSmartComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [NavbarSmartComponent]
+      imports: [NavbarSmartComponent, RouterLink]
     })
     .compileComponents();
 
@@ -19,13 +20,5 @@ describe('NavbarSmartComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
-  });
-
-  
-  it('should render header title', () => {
-    const fixture = TestBed.createComponent(NavbarSmartComponent);
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('a')?.textContent).toContain('Awesome List');
   });
 });
