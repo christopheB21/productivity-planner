@@ -44,8 +44,11 @@
           @if(this.onTouchedOrDirty(emailField,'required')) {
             <div class="form-text text-danger">Email is required.</div>
           }
+          @if(emailField.dirty && !this.isValidEmail(email())) {
+            <div class="form-text text-danger">This is not a valid email address</div>
+          }
           @if(this.onTouchedOrDirty(emailField,'type')) {
-            <div class="form-text text-danger">This is not a valid email.</div>
+            <div class="form-text text-danger">This is not a valid email</div>
           }
           <!-- PASSWORD -->
           <div class="mb-3">
@@ -62,7 +65,7 @@
             />
           </div>
           @if(this.onTouchedOrDirty(passwordField,'required')) {
-            <div class="form-text text-danger">Password is required.</div>
+            <div class="form-text text-danger">Password is required</div>
           }
           <!-- CONFIRM PASSWORD -->
           <div class="mb-3">
@@ -80,7 +83,7 @@
             />
           </div>
           @if(confirmPasswordField.dirty && !this.isPasswordMatchValid()) {
-            <div class="form-text text-danger">Passwords does not match.</div>
+            <div class="form-text text-danger">Passwords does not match</div>
           }
           <button
             type="submit"
