@@ -85,7 +85,7 @@
           <button
             type="submit"
             class="btn btn-primary"
-            [disabled]="signupForm.invalid"
+            [disabled]="signupForm.invalid || !this.isPasswordMatchValid()"
           >
             Submit
           </button>
