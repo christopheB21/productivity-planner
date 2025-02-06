@@ -2,10 +2,9 @@ import { Component, computed, signal } from '@angular/core';
 import { FormsModule, NgModel } from '@angular/forms';
 
 @Component({
-  standalone: true,
-  imports: [FormsModule],
-  templateUrl: './signup.page.component.html',
-  styleUrl: './signup.page.component.scss',
+    imports: [FormsModule],
+    templateUrl: './signup.page.component.html',
+    styleUrl: './signup.page.component.scss'
 })
 export class SignupPageComponent {
   readonly name = signal('');
