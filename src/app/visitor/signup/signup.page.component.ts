@@ -19,8 +19,10 @@ export class SignupPageComponent {
 
   readonly isValidEmail = computed(
     () => {
-      const emailReg = new RegExp(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
-      return emailReg.test(this.email());
+      const localPartRegex = /^[^<>()\[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*$/;
+      const domainRegex = /^(([a-zA-Z\-0-9]+\.)+([a-zA-Z]{2,})|(\[\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})\])$/;
+      const [localPart, domain] = this.email().split('@');
+      return localPartRegex.test(localPart) && domainRegex.test(domain);
     }
   )
 
