@@ -1,0 +1,98 @@
+<div class="container">
+    <div class="row justify-content-center">
+      <div class="col-4">
+        <form (ngSubmit)="onSubmit()" #signupForm="ngForm">
+          <!-- NAME -->
+          <div class="mb-3">
+            <label for="name" class="form-label">Name</label>
+            <input
+              #nameField="ngModel"
+              [(ngModel)]="name"
+              type="text"
+              name="name"
+              class="form-control"
+              id="name"
+              required
+              maxlength="50"
+              minlength="3"
+              pattern="^[a-zA-Z]*$"
+            />
+          </div>
+          @if(this.onTouchedOrDirty(nameField, 'required')) {
+          <div class="form-text text-danger">Name is required.</div>
+          }
+          @if(this.onTouchedOrDirty(nameField, 'minlength')) {
+            <div class="form-text text-danger">Minimum of 3 characters</div>
+          }
+          @if(this.onTouchedOrDirty(nameField, 'pattern')) {
+            <div class="form-text text-danger">Letters only are available</div>
+          } 
+          <!-- EMAIL -->
+          <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input
+              #emailField="ngModel"
+              [(ngModel)]="email"
+              name="email"
+              type="email"
+              class="form-control"
+              id="email"
+              autocomplete="email"
+              required
+            />
+          </div>
+          @if(this.onTouchedOrDirty(emailField,'required')) {
+            <div class="form-text text-danger">Email is required.</div>
+          }
+          @if(emailField.dirty && !this.isValidEmail()) {
+            <div class="form-text text-danger">This is not a valid email address</div>
+          }
+          @if(this.onTouchedOrDirty(emailField,'type')) {
+            <div class="form-text text-danger">This is not a valid email</div>
+          }
+          <!-- PASSWORD -->
+          <div class="mb-3">
+            <label for="password" class="form-label">Password</label>
+            <input
+              #passwordField="ngModel"
+              [(ngModel)]="password"
+              name="password"
+              type="password"
+              class="form-control"
+              id="password"
+              autocomplete="new-password"
+              required
+            />
+          </div>
+          @if(this.onTouchedOrDirty(passwordField,'required')) {
+            <div class="form-text text-danger">Password is required</div>
+          }
+          <!-- CONFIRM PASSWORD -->
+          <div class="mb-3">
+            <label for="confirm-password" class="form-label">
+              Confirm password
+            </label>
+            <input
+              #confirmPasswordField="ngModel"
+              [(ngModel)]="confirmPassword"
+              name="confirmPassword"
+              type="password"
+              class="form-control"
+              id="confirm-password"
+              autocomplete="new-password"
+            />
+          </div>
+          @if(confirmPasswordField.dirty && !this.isPasswordMatchValid()) {
+            <div class="form-text text-danger">Passwords does not match</div>
+          }
+          <button
+            type="submit"
+            class="btn btn-primary"
+            [disabled]="signupForm.invalid || !this.isPasswordMatchValid()"
+          >
+            Submit
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
