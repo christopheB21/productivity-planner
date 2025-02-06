@@ -4,7 +4,7 @@
     data-testid="banner-button"
     href="#" 
     class="btn btn-primary btn-lg mt-4"
-    [routerLink]="['/../signup']" routerLinkActive="router-link-active" 
+    (click)="clicked.emit()"
 >
     {{ button() }}
 </a>
