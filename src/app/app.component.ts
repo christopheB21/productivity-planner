@@ -8,6 +8,4 @@ import { NavbarSmartComponent } from './core/navbar/navbar.smart.component';
     styleUrl: './app.component.scss'
 })
 
-export class AppComponent {
-  title = 'productivity-planner';
-}
+export class AppComponent {}
