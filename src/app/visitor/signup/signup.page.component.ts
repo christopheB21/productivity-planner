@@ -1,5 +1,6 @@
-import { Component, computed, signal } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { FormsModule, NgModel } from '@angular/forms';
+import { AuthenticationService } from '../../core/authentication.service';
 
 @Component({
     imports: [FormsModule],
@@ -7,6 +8,9 @@ import { FormsModule, NgModel } from '@angular/forms';
     styleUrl: './signup.page.component.scss'
 })
 export class SignupPageComponent {
+
+  readonly authenticationService = inject(AuthenticationService);
+
   readonly name = signal('');
   readonly email = signal('');
   readonly password = signal('');
@@ -26,7 +30,12 @@ export class SignupPageComponent {
   )
 
   onSubmit() {
-    console.log('Form submitted');
+    console.log("form submitted");
+    this.authenticationService
+      .register(this.email(), this.password())
+      .subscribe((response)=>{
+        console.log("User registered with id : ", response.userId)
+});
   }
 
   onTouchedOrDirty(fieldName: NgModel, error: string) {
