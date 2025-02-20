@@ -30,7 +30,7 @@ export class SignupPageComponent {
   }
 
   onTouchedOrDirty(fieldName: NgModel, error: string) {
-    return (fieldName.dirty || fieldName.touched) && fieldName.hasError(error)
+    return fieldName.dirty && fieldName.hasError(error)
   }
 
 }
