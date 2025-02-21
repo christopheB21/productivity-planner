@@ -1,4 +1,4 @@
-import { ComponentFixture, inject, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SignupPageComponent } from './signup.page.component';
 import { AuthenticationService } from '../../core/authentication.service';
