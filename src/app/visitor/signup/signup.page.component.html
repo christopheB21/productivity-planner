@@ -13,9 +13,10 @@
               class="form-control"
               id="name"
               required
-              maxlength="50"
+              maxlength="20"
               minlength="3"
-              pattern="^[a-zA-Z]*$"
+              pattern="[a-zA-Z]+"
+              [class.is-invalid]="nameField.dirty && nameField.invalid"
             />
           </div>
           @if(this.onTouchedOrDirty(nameField, 'required')) {
@@ -39,17 +40,16 @@
               id="email"
               autocomplete="email"
               required
+              [class.is-invalid]="emailField.dirty && emailField.invalid"
             />
           </div>
           @if(this.onTouchedOrDirty(emailField,'required')) {
             <div class="form-text text-danger">Email is required.</div>
           }
-          @if(emailField.dirty && !this.isValidEmail()) {
+          @if(emailField.dirty && emailField.invalid) {
             <div class="form-text text-danger">This is not a valid email address</div>
           }
-          @if(this.onTouchedOrDirty(emailField,'type')) {
-            <div class="form-text text-danger">This is not a valid email</div>
-          }
+
           <!-- PASSWORD -->
           <div class="mb-3">
             <label for="password" class="form-label">Password</label>
@@ -62,6 +62,7 @@
               id="password"
               autocomplete="new-password"
               required
+              [class.is-invalid]="passwordField.dirty && passwordField.invalid"
             />
           </div>
           @if(this.onTouchedOrDirty(passwordField,'required')) {
@@ -80,6 +81,7 @@
               class="form-control"
               id="confirm-password"
               autocomplete="new-password"
+              [class.is-invalid]="confirmPasswordField.dirty && confirmPasswordField.invalid"
             />
           </div>
           @if(confirmPasswordField.dirty && !this.isPasswordMatchValid()) {

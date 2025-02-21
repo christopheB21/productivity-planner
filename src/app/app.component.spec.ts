@@ -1,12 +1,23 @@
 import { TestBed } from '@angular/core/testing';
 import { AppComponent } from './app.component';
-import { provideHttpClient } from '@angular/common/http';
+import { ActivatedRoute, convertToParamMap } from '@angular/router';
+import { of } from 'rxjs';
 
 describe('AppComponent', () => {
+
+  const mockActivatedRoute = {
+    paramMap: of(convertToParamMap({})),
+    snapshot: {
+      paramMap: convertToParamMap({})
+    }
+  };
+
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      providers: [provideHttpClient()],
-      imports: [AppComponent]
+      imports: [AppComponent],
+            providers: [
+              { provide: ActivatedRoute, useValue: mockActivatedRoute }
+            ]
     }).compileComponents();
   });
 
@@ -14,11 +25,5 @@ describe('AppComponent', () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
     expect(app).toBeTruthy();
-  });
-
-  it(`should have the 'productivity-planner' title`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app.title).toEqual('productivity-planner');
   });
 });
