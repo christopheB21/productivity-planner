@@ -46,12 +46,10 @@
           @if(this.onTouchedOrDirty(emailField,'required')) {
             <div class="form-text text-danger">Email is required.</div>
           }
-          @if(emailField.dirty && !this.isValidEmail()) {
+          @if(emailField.dirty && emailField.invalid) {
             <div class="form-text text-danger">This is not a valid email address</div>
           }
-          @if(this.onTouchedOrDirty(emailField,'type')) {
-            <div class="form-text text-danger">This is not a valid email</div>
-          }
+
           <!-- PASSWORD -->
           <div class="mb-3">
             <label for="password" class="form-label">Password</label>
