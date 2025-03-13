@@ -1,6 +1,7 @@
 
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { AuthenticationFirebaseService } from './authentication-firebase.service';
 
 export interface RegisterResponse {
   jwtToken: string;
@@ -17,7 +18,10 @@ export interface LoginResponse {
   isRegistered: boolean;
 }
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+  useClass: AuthenticationFirebaseService
+})
 export abstract class AuthenticationService {
 
   abstract register(

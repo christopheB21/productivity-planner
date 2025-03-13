@@ -55,20 +55,4 @@ export class AuthenticationFirebaseService implements AuthenticationService {
         }))
     );
   }
-
-//   writeFirebaseDatabase(email: string, userId: string, bearerToken: string): Observable<unknown> {
-//     const baseUrl = `https://firestore.googleapis.com/v1/projects/${environment.firebaseConfig.projectId}/databases/(default)/documents`;
-//     const firestoreCollectionId = 'users';
-//     const url = `${baseUrl}/${firestoreCollectionId}?key=${environment.firebaseConfig.apiKey}&documentId=${userId}`;
-//     const body = {
-//       fields: {
-//         email: { stringValue: email },
-//       },
-//     };
-//     const headers = new HttpHeaders({
-//       Authorization: `Bearer ${bearerToken}`
-//     })
-//     const options = { headers };
-//     return this.#httpClient.post(url, body, options);
-//   }
 }
