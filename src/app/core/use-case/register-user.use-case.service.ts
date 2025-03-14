@@ -25,7 +25,7 @@ export class RegisterUserUseCaseService {
       'email': visitor.email,
     }
 
-    this.#userservice.create(user, response.jwtToken);
+    this.#userservice.create(user, response.jwtToken).subscribe();
 
     return user;
   }
