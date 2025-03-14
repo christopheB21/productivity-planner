@@ -15,5 +15,3 @@ export abstract class UserService {
   // update(user: User): Observable<void>{}
 }
 
-
-
