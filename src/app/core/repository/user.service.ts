@@ -1,12 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { UserFirebaseService } from './user-firebase.service';
-
-export interface User {
-  id: string;
-  name: string;
-  email: string;
-}
+import { User } from '../entity/user.interface';
 
 @Injectable({
   providedIn: 'root',

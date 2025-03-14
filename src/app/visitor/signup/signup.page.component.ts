@@ -1,6 +1,8 @@
 import { Component, computed, inject, signal } from '@angular/core';
 import { FormsModule, NgModel } from '@angular/forms';
 import { AuthenticationService } from '../../core/authentication.service';
+import { Visitor } from '../../core/entity/user.interface';
+import { UserStore } from '../../core/store/user.store';
 
 @Component({
     imports: [FormsModule],
@@ -10,6 +12,7 @@ import { AuthenticationService } from '../../core/authentication.service';
 export class SignupPageComponent {
 
   readonly authenticationService = inject(AuthenticationService);
+  readonly store = inject(UserStore);
 
   readonly name = signal('');
   readonly email = signal('');
@@ -22,11 +25,12 @@ export class SignupPageComponent {
 
   onSubmit() {
     console.log("form submitted");
-    this.authenticationService
-      .register(this.email(), this.password())
-      .subscribe((response)=>{
-        console.log("User registered with id : ", response.userId)
-});
+    const visitor: Visitor = {
+      name: this.name(),
+      email: this.email(),
+      password: this.password()
+    }
+    this.store.register(visitor);
   }
 
   onTouchedOrDirty(fieldName: NgModel, error: string) {

@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component, input, output } from '@angular/core';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+
 
 @Component({
     selector: 'app-homebanner',
-    imports: [RouterLink, RouterLinkActive],
+    imports: [],
     templateUrl: './homebanner.dumb.component.html',
     styleUrl: './homebanner.dumb.component.scss',
     changeDetection: ChangeDetectionStrategy.OnPush,

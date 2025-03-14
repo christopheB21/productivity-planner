@@ -1,8 +1,9 @@
 import { inject, Injectable } from "@angular/core";
-import { User, UserService } from "./user.service";
+import { UserService } from "./user.service";
 import { ignoreElements, Observable } from "rxjs";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { environment } from "../../../environments/environment";
+import { User } from "../entity/user.interface";
 
 @ Injectable()
 export class UserFirebaseService implements UserService {
