@@ -43,7 +43,7 @@ jobs:
       # Set environment secrets
       - name: Create environment file
         run: |
-         mkdir environments
+         mkdir src/environments
          echo "Creating production environment file..."
          echo "${{ secrets.PRODUCTION_ENVIRONMENT}}" >> src/environments/environment.ts
 
