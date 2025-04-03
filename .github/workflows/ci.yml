@@ -45,7 +45,7 @@ jobs:
         run: |
          mkdir environments
          echo "Creating production environment file..."
-         echo "${{ secrets.PRODUCTION_ENVIRONMENT}}" >> environments/environment.ts
+         echo "${{ secrets.PRODUCTION_ENVIRONMENT}}" >> src/environments/environment.ts
 
       # Tests
       - name: Test
