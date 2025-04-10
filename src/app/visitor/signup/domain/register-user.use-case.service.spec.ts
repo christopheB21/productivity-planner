@@ -1,9 +1,9 @@
 import { TestBed } from '@angular/core/testing';
 
 import { RegisterUserUseCaseService } from './register-user.use-case.service';
-import { AuthenticationService } from '../../../core/authentication.service';
-import { UserService } from '../../../core/repository/user.service';
-import { UserStore } from '../../../core/store/user.store';
+import { AuthenticationService } from '@core/authentication.service';
+import { UserService } from '@core/repository/user.service';
+import { UserStore } from '@core/store/user.store';
 import { Router } from '@angular/router';
 
 describe('RegisterUserUseCaseService', () => {
