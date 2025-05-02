@@ -1,7 +1,6 @@
 import { Component, computed, inject, signal } from '@angular/core';
 import { FormsModule, NgModel } from '@angular/forms';
-import { Visitor } from '../../core/entity/user.interface';
-import { UserStore } from '../../core/store/user.store';
+import { Visitor } from '@app/core/entity/user.interface';
 import { RegisterUserUseCaseService } from './domain/register-user.use-case.service';
 
 @Component({
@@ -12,8 +11,6 @@ import { RegisterUserUseCaseService } from './domain/register-user.use-case.serv
 export class SignupPageComponent {
 
   readonly #registerUserUseCase = inject(RegisterUserUseCaseService);
-
-  readonly store = inject(UserStore);
 
   readonly name = signal('');
   readonly email = signal('');

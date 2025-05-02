@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { SignupPageComponent } from './signup.page.component';
 import { RegisterUserUseCaseService } from './domain/register-user.use-case.service';
 
