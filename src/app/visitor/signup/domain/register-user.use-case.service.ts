@@ -1,8 +1,8 @@
 import { inject, Injectable } from '@angular/core';
 import { User, Visitor } from '@app/core/entity/user.interface';
-import { AuthenticationService } from '@app/core/authentication.service';
+import { AuthenticationService } from '@app/core/port/authentication.service';
 import { firstValueFrom } from 'rxjs';
-import { UserService } from '@app/core/repository/user.service';
+import { UserService } from '@app/core/port/user.service';
 import { UserStore } from '@app/core/store/user.store';
 import { Router } from '@angular/router';
 
