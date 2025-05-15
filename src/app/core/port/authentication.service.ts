@@ -1,7 +1,7 @@
 
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { AuthenticationFirebaseService } from './authentication-firebase.service';
+import { AuthenticationFirebaseService } from '../adapter/authentication-firebase.service';
 
 export interface RegisterResponse {
   jwtToken: string;
@@ -9,6 +9,8 @@ export interface RegisterResponse {
   expiresIn: string;
   userId: string;
 }
+
+export class EmailAlreadyExtists extends Error {}
 
 export interface LoginResponse {
   jwtToken: string;
@@ -27,7 +29,7 @@ export abstract class AuthenticationService {
   abstract register(
     email: string,
     password: string
-  ): Observable<RegisterResponse>
+  ): Observable<RegisterResponse|EmailAlreadyExtists>
 
   abstract login(
     email: string,
