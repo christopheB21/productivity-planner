@@ -10,7 +10,7 @@ export interface RegisterResponse {
   userId: string;
 }
 
-export class EmailAlreadyExtists extends Error {}
+export class EmailAlreadyExtistsError extends Error {}
 
 export interface LoginResponse {
   jwtToken: string;
@@ -29,7 +29,7 @@ export abstract class AuthenticationService {
   abstract register(
     email: string,
     password: string
-  ): Observable<RegisterResponse|EmailAlreadyExtists>
+  ): Observable<RegisterResponse|EmailAlreadyExtistsError>
 
   abstract login(
     email: string,

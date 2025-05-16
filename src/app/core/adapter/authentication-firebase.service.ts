@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { environment } from '@environments/environment';
 import { catchError, map, Observable, of } from 'rxjs';
-import { AuthenticationService, EmailAlreadyExtists, LoginResponse, RegisterResponse } from '../port/authentication.service';
+import { AuthenticationService, EmailAlreadyExtistsError, LoginResponse, RegisterResponse } from '../port/authentication.service';
 
 interface FirebaseUserSignUpResponse {
   idToken: string;
@@ -28,7 +28,7 @@ export class AuthenticationFirebaseService implements AuthenticationService {
 
   readonly #httpClient = inject(HttpClient);
   
-  register(email: string, password: string): Observable<RegisterResponse|EmailAlreadyExtists> {
+  register(email: string, password: string): Observable<RegisterResponse|EmailAlreadyExtistsError> {
     const url = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${environment.firebaseConfig.apiKey}`
     const body = {email,password, returnSecureToken:true };
     
@@ -40,8 +40,8 @@ export class AuthenticationFirebaseService implements AuthenticationService {
             userId: response.localId
         })),
         catchError(error => {
-          if (error.error.mesessage === 'EMAIL_EXISTS') {
-            return of(new EmailAlreadyExtists(`Email $(email) is already taken. Please try another email.`));
+          if (error.error.error.message === 'EMAIL_EXISTS') {
+            return of(new EmailAlreadyExtistsError(`Email ${email} is already taken. Please try another email.`));
           }
           throw error;
         })

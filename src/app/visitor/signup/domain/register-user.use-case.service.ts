@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { User, Visitor } from '@app/core/entity/user.interface';
-import { AuthenticationService } from '@app/core/port/authentication.service';
+import { AuthenticationService, EmailAlreadyExtistsError } from '@app/core/port/authentication.service';
 import { firstValueFrom } from 'rxjs';
 import { UserService } from '@app/core/port/user.service';
 import { UserStore } from '@app/core/store/user.store';
@@ -20,8 +20,11 @@ export class RegisterUserUseCaseService {
     // 1. Authenticate new visitor
     const { name, email, password } = visitor
     const registerResponse = await firstValueFrom(this.#authenticationService.register(email,password));
-    
+
     // 2. Add credentials information in session storage
+    if (registerResponse instanceof EmailAlreadyExtistsError) {
+      throw registerResponse
+    }
     const { userId: id, jwtToken } = registerResponse;
 
     localStorage.setItem('jwtToken', jwtToken);
