@@ -1,0 +1,64 @@
+
+import { HttpClient } from '@angular/common/http';
+import { inject, Injectable } from '@angular/core';
+import { environment } from '@env/environment';
+import { catchError, map, Observable, of } from 'rxjs';
+import { AuthenticationService, EmailAlreadyExtistsError, LoginResponse, RegisterResponse } from '../port/authentication.service';
+
+interface FirebaseUserSignUpResponse {
+  idToken: string;
+  email: string;
+  refreshToken: string;
+  expiresIn: string;
+  localId: string;
+}
+
+interface FirebaseUserSignInResponse {
+  displayName: string;
+  email: string;
+  expiresIn: string;
+  idToken: string;
+  localId: string;
+  refreshToken: string;
+  registered: boolean;
+}
+
+@Injectable()
+export class AuthenticationFirebaseService implements AuthenticationService {
+
+  readonly #httpClient = inject(HttpClient);
+  
+  register(email: string, password: string): Observable<RegisterResponse|EmailAlreadyExtistsError> {
+    const url = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${environment.firebaseConfig.apiKey}`
+    const body = {email,password, returnSecureToken:true };
+    
+    return this.#httpClient.post<FirebaseUserSignUpResponse>(url, body).pipe(
+        map( (response) => ({
+            jwtToken: response.idToken,
+            refreshToken: response.refreshToken,
+            expiresIn: response.expiresIn,
+            userId: response.localId
+        })),
+        catchError(error => {
+          if (error.error.error.message === 'EMAIL_EXISTS') {
+            return of(new EmailAlreadyExtistsError(`Email ${email} is already taken. Please try another email.`));
+          }
+          throw error;
+        })
+    );
+    }
+
+  login(email: string, password: string): Observable <LoginResponse> {
+    const url = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${environment.firebaseConfig.apiKey}`
+    const body = {email,password, returnSecureToken:true };
+    return this.#httpClient.post<FirebaseUserSignInResponse>(url, body).pipe(
+        map( (response) => ({
+            jwtToken: response.idToken,
+            refreshToken: response.refreshToken,
+            expiresIn: response.expiresIn,
+            userId: response.localId,
+            isRegistered: response.registered
+        }))
+    );
+  }
+}

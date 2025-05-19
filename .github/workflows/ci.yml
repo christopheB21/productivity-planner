@@ -11,7 +11,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [20.13]
+        node-version: [22.14]
 
     steps:
       # Vérification du dépôt
@@ -30,7 +30,7 @@ jobs:
 
       # Audit de sécurité
       - name: Audit
-        run: npm audit
+        run: npm audit --audit-level=high
 
       # Vérification de la signature des audits
       - name: Audit Signature
@@ -43,9 +43,9 @@ jobs:
       # Set environment secrets
       - name: Create environment file
         run: |
-         mkdir environments
+         mkdir src/environments
          echo "Creating production environment file..."
-         echo "${{ secrets.PRODUCTION_ENVIRONMENT}}" >> environments/environment.ts
+         echo "${{ secrets.PRODUCTION_ENVIRONMENT}}" >> src/environments/environment.ts
 
       # Tests
       - name: Test
