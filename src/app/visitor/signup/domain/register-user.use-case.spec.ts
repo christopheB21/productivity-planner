@@ -1,5 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import { RegisterUserUseCaseService } from './register-user.use-case.service';
+import { RegisterUserUseCaseService } from './register-user.use-case';
 import { AuthenticationService } from '@app/core/port/authentication.service';
 import { UserService } from '@app/core/port/user.service';
 import { UserStore } from '@app/core/store/user.store';

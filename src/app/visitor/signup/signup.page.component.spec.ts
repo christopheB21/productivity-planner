@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 import { SignupPageComponent } from './signup.page.component';
-import { RegisterUserUseCaseService } from './domain/register-user.use-case.service';
+import { RegisterUserUseCaseService } from './domain/register-user.use-case';
 
 describe('SignupPageComponent', () => {
   let component: SignupPageComponent;
