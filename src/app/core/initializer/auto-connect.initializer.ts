@@ -1,5 +1,4 @@
-import { concatMap, Observable } from 'rxjs';
-import { tap } from 'rxjs';
+import { concatMap, Observable, tap } from 'rxjs';
 import { Router } from '@angular/router';
 import { AuthenticationService } from '@app/core/port/authentication.service';
 import { UserService } from '@app/core/port/user.service';
@@ -21,8 +20,7 @@ export function initializeAutoConnectFactory(
 
      authenticationService.refreshToken(refreshToken).pipe(
       tap({
-        next: ({jwtToken}) => localStorage.setItem('jwtToken', jwtToken),
-        error: () => observer.complete()
+        next: ({jwtToken}) => localStorage.setItem('jwtToken', jwtToken)
       }),
       concatMap(({ userId, jwtToken }) => userService.fetch(userId, jwtToken)),
      )
@@ -30,11 +28,13 @@ export function initializeAutoConnectFactory(
         next: (user) => {
           userStore.load(user);      
           router.navigate(['/app/dashboard']);
-          observer.complete();
         },
-        error: () => {
-          observer.complete();
+        error: (error) => {
+        console.error('Error in subscription:', error);
+        },
+        complete: () => {
+          console.log('Completed');
         }
-    });
+      });
   })
 }
