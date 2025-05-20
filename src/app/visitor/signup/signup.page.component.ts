@@ -1,7 +1,7 @@
 import { Component, computed, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Visitor } from '@app/core/entity/user.interface';
-import { RegisterUserUseCaseService } from './domain/register-user.use-case.service';
+import { RegisterUserUseCaseService } from './domain/register-user.use-case';
 import { EmailAlreadyTakenError } from './domain/email-already-taken.error';
 
 @Component({
