@@ -5,22 +5,22 @@ interface UserState {
     user: User | undefined
 }
 
+export type UserStore = InstanceType<typeof UserStore>;
+
 export const UserStore = signalStore(
     { providedIn: 'root' },
     withState<UserState>({
         user: undefined
     }),
     withComputed((store) => {
-        const isGoogleUser = computed(() => !!store.user()?.email.endsWith('@google.com'));
-    
+        const isGoogleUser = computed(() => !!store.user()?.email.endsWith('@gmail.com'));
         return { isGoogleUser}
     }),
-    withMethods(
-        (store) => {
-            const register = (user: User): void => {
+    withMethods((store) => ({
+            load(user: User): void {
+                console.log(user);
                 patchState(store, { user });
-                };
-            return { register };
-        }
+                }
+        })
     )
 );
