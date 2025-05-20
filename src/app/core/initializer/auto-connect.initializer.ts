@@ -20,8 +20,9 @@ export function initializeAutoConnectFactory(
     }
 
      authenticationService.refreshToken(refreshToken).pipe(
-      tap(({ jwtToken }) => {
-        localStorage.setItem('jwtToken', jwtToken)
+      tap({
+        next: ({jwtToken}) => localStorage.setItem('jwtToken', jwtToken),
+        error: () => observer.complete()
       }),
       concatMap(({ userId, jwtToken }) => userService.fetch(userId, jwtToken)),
      )
