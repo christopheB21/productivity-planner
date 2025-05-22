@@ -28,12 +28,10 @@ export function initializeAutoConnectFactory(
         next: (user) => {
           userStore.load(user);      
           router.navigate(['/app/dashboard']);
+          observer.complete();
         },
-        error: (error) => {
-        console.error('Error in subscription:', error);
-        },
-        complete: () => {
-          console.log('Completed');
+        error: () => {
+          observer.complete();
         }
       });
   })
