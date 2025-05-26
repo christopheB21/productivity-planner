@@ -14,7 +14,7 @@ describe('RegisterUserUseCaseService', () => {
         RegisterUserUseCaseService,
         { provide: AuthenticationService, useValue: { register: jest.fn()}},
         { provide: UserService, useValue: { create: jest.fn( )}},
-        { provide: UserStore, useValue: { register: jest.fn() }},
+        { provide: UserStore, useValue: { load: jest.fn() }},
         { provide: Router, useValue: { navigate: jest.fn() }},
       ]
     });
