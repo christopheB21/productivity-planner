@@ -1,28 +1,26 @@
 import { Routes } from '@angular/router';
-import { HomepageComponent } from './visitor/homepage/homepage.component';
-import { SignupPageComponent } from './visitor/signup/signup.page.component';
-import { LoginPageComponent } from './visitor/login/login.page.component';
-import { DashboardPageComponent } from './membership/dashboard/dashboard.page.component';
+import { ShellMembershipLayoutComponent } from './membership/core/shell-membership/shell-membership.layout.component';
 
 export const routes: Routes = [
   {
     path: '',
-    component: HomepageComponent,
+    loadComponent: () => import('./visitor/homepage/homepage.component').then(component => component.HomepageComponent),
     title: 'Productivity Planner',
   },
   {
     path: 'login',
-    component: LoginPageComponent,
+    loadComponent: () => import('./visitor/login/login.page.component').then(component => component.LoginPageComponent),
     title: 'Login'
   },
   {
     path: 'signup',
-    component: SignupPageComponent,
+    loadComponent: () => import('./visitor/signup/signup.page.component').then(component => component.SignupPageComponent),
     title: 'Signup',
   },
   {
-    path: 'app/dashboard',
-    component: DashboardPageComponent,
-    title: 'Dashboard',
+    path: 'app',
+    title: 'Productivity Planner',
+    component: ShellMembershipLayoutComponent,
+    loadChildren: () => import('./membership/membership.routing').then(routes => routes.membershipRoutes),
   },
 ];
