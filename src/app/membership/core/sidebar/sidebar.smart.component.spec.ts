@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ShellMembershipLayoutComponent } from './shell-membership.layout.component';
+import { SidebarSmartComponent } from './sidebar.smart.component';
 import { provideRouter } from '@angular/router';
 
-describe('ShellMembershipLayoutComponent', () => {
-  let component: ShellMembershipLayoutComponent;
-  let fixture: ComponentFixture<ShellMembershipLayoutComponent>;
+describe('SidebarSmartComponent', () => {
+  let component: SidebarSmartComponent;
+  let fixture: ComponentFixture<SidebarSmartComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ShellMembershipLayoutComponent],
+      imports: [SidebarSmartComponent],
       providers: [provideRouter([])]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(ShellMembershipLayoutComponent);
+    fixture = TestBed.createComponent(SidebarSmartComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
