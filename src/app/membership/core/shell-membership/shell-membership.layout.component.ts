@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { SidebarSmartComponent } from '../sidebar/sidebar.smart.component';
 
 @Component({
-  selector: 'app-shell-membership',
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, SidebarSmartComponent],
   templateUrl: './shell-membership.layout.component.html',
   styleUrl: './shell-membership.layout.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
