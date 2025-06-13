@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { WorkdayStore } from './workday.page.store';
 
 @Component({
   imports: [],
@@ -6,5 +7,5 @@ import { Component } from '@angular/core';
   styleUrl: './workday.page.component.scss'
 })
 export class WorkdayPageComponent {
-
+  readonly store = inject(WorkdayStore);
 }
