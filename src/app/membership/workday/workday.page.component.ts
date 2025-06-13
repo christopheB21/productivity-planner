@@ -3,6 +3,7 @@ import { WorkdayStore } from './workday.page.store';
 
 @Component({
   imports: [],
+  providers: [WorkdayStore],
   templateUrl: './workday.page.component.html',
   styleUrl: './workday.page.component.scss'
 })
