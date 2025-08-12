@@ -1,10 +1,11 @@
-import { Component, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { HomepageFeatureCardListDumbComponent } from './homepage-feature-card-list/homepage-feature-card-list.dumb.component';
 import { HomebannerDumbComponent } from "./homebanner/homebanner.dumb.component";
 @Component({
     imports: [HomepageFeatureCardListDumbComponent, HomebannerDumbComponent],
     templateUrl: './homepage.component.html',
-    styleUrl: './homepage.component.scss'
+    styleUrl: './homepage.component.scss',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HomepageComponent {
   cardList = signal([
