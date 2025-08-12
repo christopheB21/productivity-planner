@@ -2,6 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { AppComponent } from './app.component';
 import { ActivatedRoute, convertToParamMap } from '@angular/router';
 import { of } from 'rxjs';
+import { provideZonelessChangeDetection } from '@angular/core';
 
 describe('AppComponent', () => {
 
@@ -16,6 +17,7 @@ describe('AppComponent', () => {
     await TestBed.configureTestingModule({
       imports: [AppComponent],
             providers: [
+              provideZonelessChangeDetection(),
               { provide: ActivatedRoute, useValue: mockActivatedRoute }
             ]
     }).compileComponents();

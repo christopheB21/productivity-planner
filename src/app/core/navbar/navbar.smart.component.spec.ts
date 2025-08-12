@@ -3,6 +3,7 @@ import { NavbarSmartComponent } from './navbar.smart.component';
 import { ActivatedRoute, convertToParamMap } from '@angular/router';
 import { of } from 'rxjs';
 import { By } from '@angular/platform-browser';
+import { provideZonelessChangeDetection } from '@angular/core';
 
 describe('NavbarSmartComponent', () => {
   let component: NavbarSmartComponent;
@@ -18,6 +19,7 @@ describe('NavbarSmartComponent', () => {
     await TestBed.configureTestingModule({
       imports: [NavbarSmartComponent],
       providers: [
+        provideZonelessChangeDetection(),
         { provide: ActivatedRoute, useValue: mockActivatedRoute }
       ]
      })
