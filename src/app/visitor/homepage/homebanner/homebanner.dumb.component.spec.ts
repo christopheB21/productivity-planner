@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { HomebannerDumbComponent } from './homebanner.dumb.component';
-import { DebugElement } from '@angular/core';
+import { DebugElement, provideZonelessChangeDetection } from '@angular/core';
 import { By } from '@angular/platform-browser';
 
 describe('HomebannerDumbComponent', () => {
@@ -14,7 +14,8 @@ describe('HomebannerDumbComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [HomebannerDumbComponent]
+      imports: [HomebannerDumbComponent],
+      providers:[provideZonelessChangeDetection()]
     })
     .compileComponents();
 
