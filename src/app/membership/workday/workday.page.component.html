@@ -52,8 +52,11 @@
     </div>
   }
   
-  <!-- Ajouter une tâche -->
+ <!-- Ajouter une tâche -->
   <div class="text-center">
-    <button class="btn btn-link text-muted">Ajouter une tâche</button>
+    @if(store.isButtonDisplayed()) {
+    <button data-test="add-task-button" class="btn btn-link text-muted" (click)="store.onAddTask()">Ajouter une
+      tâche</button>
+    }
   </div>
 </div>
