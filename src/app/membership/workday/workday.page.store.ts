@@ -70,7 +70,7 @@ export const WorkdayStore = signalStore(
     },
     removeTask($index: number) {
       patchState(store, (state) => ({
-        taskList: state.taskList.filter((_ , i) => i !== $index)
+        taskList: state.taskList.toSpliced($index, 1),
       }))
     },
     updateTaskTitle($index: number, event: Event) {
