@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { WorkdayStore } from './workday.page.store';
-
 @Component({
   imports: [],
   providers: [WorkdayStore],

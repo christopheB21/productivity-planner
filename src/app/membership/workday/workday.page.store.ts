@@ -48,7 +48,7 @@ const getEmptyTask = (): Task => ({
 });
 
 const initialState: WorkdayState = {
-  date: '1970-11-15',
+  date: new Date().toISOString().substring(0, 10),
   taskList: [getEmptyTask()],
 };
 
