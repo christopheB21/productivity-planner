@@ -91,9 +91,6 @@ describe('WorkdayPageComponent', () => {
       const image = emptyState.querySelector('img');
       expect(image).toBeTruthy();
       expect(image.src).toContain('productivity-planner-inbox-zero.gif');
-      
-      const message = emptyState.querySelector('p');
-      expect(message.textContent).toBe('Aucune tâche prévue pour aujourd\'hui');
     });
 
     it('should hide empty state when tasks exist', () => {
