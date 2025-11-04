@@ -8,6 +8,8 @@ describe('WorkdayPageComponent', () => {
   
     const getAddTaskButton = () =>
     fixture.nativeElement.querySelector('[data-testid=add-task-button]');
+    const getStartButton = () => 
+    fixture.nativeElement.querySelector('[data-testid="start-button"]');
 
     beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -76,6 +78,36 @@ describe('WorkdayPageComponent', () => {
     });
   });
 
+  describe('when there are no tasks', () => {
+    beforeEach(() => {
+      while (component.store.taskList().length > 0) {
+        component.store.removeTask(0);
+      }
+      fixture.detectChanges();
+    });
+
+    it('should display empty state with image and message', () => {
+      const emptyState = fixture.nativeElement.querySelector('[data-testid="empty-state"]');
+      expect(emptyState).toBeTruthy();
+      
+      const image = emptyState.querySelector('img');
+      expect(image).toBeTruthy();
+      expect(image.src).toContain('productivity-planner-inbox-zero.gif');
+    });
+
+    it('should hide empty state when tasks exist', () => {
+      component.store.onAddTask();
+      fixture.detectChanges();
+      
+      const emptyState = fixture.nativeElement.querySelector('[data-testid="empty-state"]');
+      expect(emptyState).toBeNull();
+    });
+
+    it('should hide start button when adding a task', () => {     
+      const startButton = getStartButton();
+      expect(startButton).toBeNull();
+    });
+  });
 });
 
 

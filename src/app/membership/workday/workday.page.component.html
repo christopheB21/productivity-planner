@@ -7,13 +7,22 @@
       <input type="date" class="form-control" [value]="store.date()" (change)="store.updateDate($event)" />
     </div>
     <div class="col-md-4 text-end mt-3 mt-md-0">
-      <button class="btn btn-success rounded-pill px-4 py-2 fw-bold">
-        Start the work day
-      </button>
+      @if(store.hasTaskPlanned()) {
+        <button class="btn btn-success rounded-pill px-4 py-2 fw-bold" data-testid="start-button">
+          Start the work day
+        </button>
+      }
     </div>
   </div>
 
-    @for(task of store.taskList(); track $index ){
+  @if(store.hasNoTaskPlanned()) {
+    <div class="text-center my-4" data-testid="empty-state">
+      <img src="images/productivity-planner-inbox-zero.gif" alt="No tasks" class="img-fluid mb-3" />
+      <p class="text-muted">Aucune tâche prévue pour aujourd'hui</p>
+    </div>
+  }
+
+  @for(task of store.taskList(); track $index ){
     @if ($index === 0){
       <h6 class="mb-3 text-muted">Most important task</h6>
     }
