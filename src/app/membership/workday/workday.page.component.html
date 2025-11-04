@@ -13,7 +13,7 @@
     </div>
   </div>
 
-  @if(store.taskList().length === 0) {
+  @if(store.hasNoTaskPlanned()) {
     <div class="text-center my-4" data-testid="empty-state">
       <img src="images/productivity-planner-inbox-zero.gif" alt="No tasks" class="img-fluid mb-3" />
       <p class="text-muted">Aucune tâche prévue pour aujourd'hui</p>
