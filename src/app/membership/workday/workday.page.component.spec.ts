@@ -76,6 +76,34 @@ describe('WorkdayPageComponent', () => {
     });
   });
 
+  describe('when there are no tasks', () => {
+    beforeEach(() => {
+      while (component.store.taskList().length > 0) {
+        component.store.removeTask(0);
+      }
+      fixture.detectChanges();
+    });
+
+    it('should display empty state with image and message', () => {
+      const emptyState = fixture.nativeElement.querySelector('[data-testid="empty-state"]');
+      expect(emptyState).toBeTruthy();
+      
+      const image = emptyState.querySelector('img');
+      expect(image).toBeTruthy();
+      expect(image.src).toContain('productivity-planner-inbox-zero.gif');
+      
+      const message = emptyState.querySelector('p');
+      expect(message.textContent).toBe('Aucune tâche prévue pour aujourd\'hui');
+    });
+
+    it('should hide empty state when tasks exist', () => {
+      component.store.onAddTask();
+      fixture.detectChanges();
+      
+      const emptyState = fixture.nativeElement.querySelector('[data-testid="empty-state"]');
+      expect(emptyState).toBeNull();
+    });
+  });
 });
 
 
