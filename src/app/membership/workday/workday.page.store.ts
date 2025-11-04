@@ -15,11 +15,14 @@ interface Pomodoro {
 }
 
 type PomodoroList = Pomodoro[];
+type TaskType = 'Hit the target' | 'Get things done';
+
+type PomodoroCount = 1 | 2 | 3 | 4 | 5;
 
 interface Task {
-  type: 'Hit the target' | 'Get things done';
+  type: TaskType;
   title: string;
-  pomodoroCount: 1 | 2 | 3 | 4 | 5;
+  pomodoroCount: PomodoroCount;
   pomodoroList: PomodoroList;
 }
 
@@ -45,7 +48,7 @@ const getEmptyTask = (): Task => ({
 });
 
 const initialState: WorkdayState = {
-  date: '',
+  date: new Date().toISOString().substring(0, 10),
   taskList: [getEmptyTask()],
 };
 
@@ -64,6 +67,44 @@ export const WorkdayStore = signalStore(
       patchState(store, (state) => ({
         taskList: [...state.taskList, getEmptyTask()],
       }));
+    },
+    removeTask($index: number) {
+      patchState(store, (state) => ({
+        taskList: state.taskList.toSpliced($index, 1),
+      }))
+    },
+    updateTaskTitle($index: number, event: Event) {
+      const title = (event.target as HTMLInputElement).value;
+
+      patchState(store, (state) => {
+        const task: Task = { ...state.taskList[$index], title };
+        const taskList: TaskList = state.taskList.toSpliced($index, 1, task);
+        return { taskList };
+      });
+    },
+    updateTaskType($index: number, event: Event) {
+      const type = (event.target as HTMLSelectElement).value as TaskType;
+
+      patchState(store, (state) => {
+        const task: Task = { ...state.taskList[$index], type };
+        const taskList: TaskList = state.taskList.toSpliced($index, 1, task);
+        return { taskList };
+      });
+    },
+    updateDate(event: Event) {
+      const date = (event.target as HTMLInputElement).value;
+      patchState(store, () => ({ date }));
+    },
+    updateTaskPomodoroCount($index: number, event: Event) {
+      const pomodoroCount = Number(
+        (event.target as HTMLSelectElement).value
+      ) as PomodoroCount;
+
+      patchState(store, (state) => {
+        const task: Task = { ...state.taskList[$index], pomodoroCount };
+        const taskList: TaskList = state.taskList.toSpliced($index, 1, task);
+        return { taskList };
+      });
     },
   }))
 );
