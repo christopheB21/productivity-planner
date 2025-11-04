@@ -31,7 +31,6 @@ type TaskList = Task[];
 interface WorkdayState {
   date: string;
   taskList: TaskList;
-  showStartButton: boolean; // Add this line
 }
 
 const getEmptyTask = (): Task => ({
@@ -51,7 +50,6 @@ const getEmptyTask = (): Task => ({
 const initialState: WorkdayState = {
   date: new Date().toISOString().substring(0, 10),
   taskList: [getEmptyTask()],
-  showStartButton: true // Add this line
 };
 
 const WORKDAY_TASK_LIMIT = 6;
@@ -62,14 +60,14 @@ export const WorkdayStore = signalStore(
     const taskCount = computed(() => state.taskList().length);
     const isButtonDisplayed = computed(() => taskCount() < WORKDAY_TASK_LIMIT);
     const hasNoTaskPlanned = computed(() => taskCount() === 0);
+    const hasTaskPlanned = computed(() => taskCount() > 0);
 
-    return { taskCount, isButtonDisplayed, hasNoTaskPlanned };
+    return { taskCount, isButtonDisplayed, hasNoTaskPlanned, hasTaskPlanned };
   }),
   withMethods((store) => ({
     onAddTask() {
       patchState(store, (state) => ({
         taskList: [...state.taskList, getEmptyTask()],
-        showStartButton: false
       }));
     },
     removeTask($index: number) {

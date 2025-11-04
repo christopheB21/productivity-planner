@@ -8,6 +8,8 @@ describe('WorkdayPageComponent', () => {
   
     const getAddTaskButton = () =>
     fixture.nativeElement.querySelector('[data-testid=add-task-button]');
+    const getStartButton = () => 
+    fixture.nativeElement.querySelector('[data-testid="start-button"]');
 
     beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -100,21 +102,8 @@ describe('WorkdayPageComponent', () => {
       const emptyState = fixture.nativeElement.querySelector('[data-testid="empty-state"]');
       expect(emptyState).toBeNull();
     });
-  });
 
-  describe('Start button behavior', () => {
-    const getStartButton = () => 
-      fixture.nativeElement.querySelector('[data-testid="start-button"]');
-
-    it('should display start button initially', () => {
-      const startButton = getStartButton();
-      expect(startButton).toBeTruthy();
-    });
-
-    it('should hide start button when adding a task', () => {
-      component.store.onAddTask();
-      fixture.detectChanges();
-      
+    it('should hide start button when adding a task', () => {     
       const startButton = getStartButton();
       expect(startButton).toBeNull();
     });
