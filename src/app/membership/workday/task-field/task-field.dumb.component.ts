@@ -9,7 +9,7 @@ import { PomodoroCount, Task, TaskType } from '../workday.page.store';
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
     class: 'card',
-    '[attr.data-testid]': '`task${${index()}`',
+    '[attr.data-testid]': '`task-${index()}`',
   }
 })
 export class TaskFieldDumbComponent {

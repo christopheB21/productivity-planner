@@ -16,9 +16,7 @@ interface Pomodoro {
 
 type PomodoroList = Pomodoro[];
 export type TaskType = 'Hit the target' | 'Get things done';
-
 export type PomodoroCount = 1 | 2 | 3 | 4 | 5;
-
 export interface Task {
   type: TaskType;
   title: string;
@@ -47,25 +45,28 @@ const getEmptyTask = (): Task => ({
   ],
 });
 
-const initialState: WorkdayState = {
-  date: new Date().toISOString().substring(0, 10),
-  taskList: [getEmptyTask()],
-};
-
 const WORKDAY_TASK_LIMIT = 6;
 
 export const WorkdayStore = signalStore(
-  withState<WorkdayState>(initialState),
+  withState<WorkdayState>({
+    date: '2019-02-28',
+    taskList: [getEmptyTask()],
+  }),
   withComputed((state) => {
     const taskCount = computed(() => state.taskList().length);
     const isButtonDisplayed = computed(() => taskCount() < WORKDAY_TASK_LIMIT);
     const hasNoTaskPlanned = computed(() => taskCount() === 0);
     const hasTaskPlanned = computed(() => taskCount() > 0);
 
-    return { taskCount, isButtonDisplayed, hasNoTaskPlanned, hasTaskPlanned };
+    return {
+      taskCount,
+      isButtonDisplayed,
+      hasNoTaskPlanned,
+      hasTaskPlanned,
+    };
   }),
   withMethods((store) => ({
-    onAddTask() {
+    addTask() {
       patchState(store, (state) => ({
         taskList: [...state.taskList, getEmptyTask()],
       }));
@@ -73,7 +74,7 @@ export const WorkdayStore = signalStore(
     removeTask($index: number) {
       patchState(store, (state) => ({
         taskList: state.taskList.toSpliced($index, 1),
-      }))
+      }));
     },
     updateDate(event: Event) {
       const date = (event.target as HTMLInputElement).value;
