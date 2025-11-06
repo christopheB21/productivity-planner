@@ -1,22 +1,40 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { WorkdayPageComponent } from './workday.page.component';
 import { provideZonelessChangeDetection } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+import { WorkdayPageComponent } from './workday.page.component';
 
 describe('WorkdayPageComponent', () => {
   let component: WorkdayPageComponent;
   let fixture: ComponentFixture<WorkdayPageComponent>;
-  
-    const getAddTaskButton = () =>
-    fixture.nativeElement.querySelector('[data-testid=add-task-button]');
-    const getStartButton = () => 
-    fixture.nativeElement.querySelector('[data-testid="start-button"]');
 
-    beforeEach(async () => {
+  const getAddTaskButton = () =>
+    fixture.debugElement.query(By.css('[data-testid="add-task-button"]'));
+  const getStartWorkdayButton = () =>
+    fixture.debugElement.query(By.css('[data-testid="start-workday-button"]'));
+  /* Get task by position instead of index: getTask(1) <=> task at index 0. */
+  const getTask = (id: number) =>
+    fixture.debugElement.query(By.css(`[data-testid="task-${id - 1}"]`));
+  const getTaskInput = (id: number) =>
+    fixture.debugElement.query(By.css(`[data-testid="task-input-${id - 1}"]`));
+  const getRemoveTaskButton = (id: number) =>
+    fixture.debugElement.query(By.css(`[data-testid="task-remove-${id - 1}"]`));
+  const getInboxZeroPlaceholder = () =>
+    fixture.debugElement.query(
+      By.css('[data-testid="inbox-zero-placeholder"]')
+    );
+
+  const setTaskTitle = (id: number, title: string) => {
+    const input = getTaskInput(id).nativeElement as HTMLInputElement;
+    input.value = title;
+    input.dispatchEvent(new Event('input', { bubbles: true }));
+    fixture.detectChanges();
+  };
+
+  beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [WorkdayPageComponent],
-      providers:[provideZonelessChangeDetection()]
-    })
-    .compileComponents();
+      providers: [provideZonelessChangeDetection()],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(WorkdayPageComponent);
     component = fixture.componentInstance;
@@ -26,50 +44,55 @@ describe('WorkdayPageComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-  describe('when workday page load', () => {
-      it('shuold diplay one task', () => {
-        expect(component.store.taskCount()).toBe(1);
-      })
-      it('sould display "Add task" button', () => {
-        const button = getAddTaskButton();
-        expect(button).toBeDefined();
-      });
-    });
 
-  describe('when user removes task', () => {
-    beforeEach(() => {
-      component.store.onAddTask();
-      component.store.onAddTask();
+  describe('when empty workday page load', () => {
+    it('sould display one task', () => {
+      expect(getTask(1)).toBeTruthy();
+      expect(getTask(2)).toBeNull();
+    });
+    it('sould display "Add task" button', () => {
+      const button = getAddTaskButton();
+      expect(button).toBeTruthy();
+    });
+    it('should hide inbox zero placeholder', () => {
+      expect(getInboxZeroPlaceholder()).toBeNull();
+    });
+    it('sould display "Start workday" button', () => {
+      const button = getStartWorkdayButton();
+      expect(button).toBeTruthy();
+    });
+  });
+
+  describe('when user remove a task', () => {
+    it('should remove corresponding task', () => {
+      // Arrange
+      const button = getAddTaskButton();
+      button.nativeElement.click();
+      button.nativeElement.click();
+      button.nativeElement.click();
+      fixture.detectChanges();
+      setTaskTitle(1, 'Tâche 1');
+      setTaskTitle(2, 'Tâche 2');
+      setTaskTitle(3, 'Tâche 3');
+
+      // Act
+      getRemoveTaskButton(2).nativeElement.click();
       fixture.detectChanges();
 
-    })
-    it('should remove a task', () => {
-
-      for (let i = 0; i < component.store.taskList().length; i++) {
-        const taskItemElement = fixture.nativeElement.querySelector(`[data-testid="task${i}"]`);
-        taskItemElement.value=i.toString();
-
-        const inputEvent = new Event('input');
-        taskItemElement.dispatchEvent(inputEvent);
-
-        component.store.updateTaskTitle(i, inputEvent);
-        expect(component.store.taskList()[i].title).toBe(i.toString());
-      }
-      component.store.removeTask(1);
-      expect(component.store.taskList().length).toBe(2);
-      expect(component.store.taskList()[0].title).toBe('0');
-      expect(component.store.taskList()[1].title).toBe('2');
-
-    })
-  })
+      // Assert
+      const secondTaskInput = getTaskInput(2).nativeElement;
+      expect(secondTaskInput.value).toBe('Tâche 3');
+    });
+  });
 
   describe('when there is 6 tasks planned for the current day', () => {
     beforeEach(() => {
-      component.store.onAddTask();
-      component.store.onAddTask();
-      component.store.onAddTask();
-      component.store.onAddTask();
-      component.store.onAddTask();
+      const button = getAddTaskButton();
+      button.nativeElement.click();
+      button.nativeElement.click();
+      button.nativeElement.click();
+      button.nativeElement.click();
+      button.nativeElement.click();
       fixture.detectChanges();
     });
     it('sould hide "Add task" button', () => {
@@ -78,36 +101,18 @@ describe('WorkdayPageComponent', () => {
     });
   });
 
-  describe('when there are no tasks', () => {
+  describe('when no task is planned', () => {
     beforeEach(() => {
-      while (component.store.taskList().length > 0) {
-        component.store.removeTask(0);
-      }
+      getRemoveTaskButton(1).nativeElement.click();
       fixture.detectChanges();
     });
 
-    it('should display empty state with image and message', () => {
-      const emptyState = fixture.nativeElement.querySelector('[data-testid="empty-state"]');
-      expect(emptyState).toBeTruthy();
-      
-      const image = emptyState.querySelector('img');
-      expect(image).toBeTruthy();
-      expect(image.src).toContain('productivity-planner-inbox-zero.gif');
+    it('should display inbox zero placeholder', () => {
+      expect(getInboxZeroPlaceholder()).toBeTruthy();
     });
-
-    it('should hide empty state when tasks exist', () => {
-      component.store.onAddTask();
-      fixture.detectChanges();
-      
-      const emptyState = fixture.nativeElement.querySelector('[data-testid="empty-state"]');
-      expect(emptyState).toBeNull();
-    });
-
-    it('should hide start button when adding a task', () => {     
-      const startButton = getStartButton();
-      expect(startButton).toBeNull();
+    it('sould hide "Start workday" button', () => {
+      const button = getStartWorkdayButton();
+      expect(button).toBeNull();
     });
   });
 });
-
-
