@@ -78,7 +78,7 @@ export function isPomodoroNotStarted(pomodoro: number): boolean {
   return pomodoro === 0;
 }
 
-export function getActivePomodoroIndex(task: Task): number | -1 {
+export function getActivePomodoroIndex(task: Task): number {
   return task.pomodoroList.findIndex(
     (pomodoro) => !isPomodoroCompleted(pomodoro)
   );
