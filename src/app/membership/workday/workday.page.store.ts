@@ -6,25 +6,8 @@ import {
   withMethods,
   withState,
 } from '@ngrx/signals';
+import { Task, TaskList } from './task.model';
 
-interface Pomodoro {
-  status: 'Not started' | 'In progress' | 'Done';
-  currentTime: number;
-  duration: number;
-  isCompleted: boolean;
-}
-
-type PomodoroList = Pomodoro[];
-export type TaskType = 'Hit the target' | 'Get things done';
-export type PomodoroCount = 1 | 2 | 3 | 4 | 5;
-export interface Task {
-  type: TaskType;
-  title: string;
-  pomodoroCount: PomodoroCount;
-  pomodoroList: PomodoroList;
-}
-
-type TaskList = Task[];
 
 interface WorkdayState {
   date: string;
@@ -36,15 +19,10 @@ interface WorkdayState {
 const getEmptyTask = (): Task => ({
   type: 'Hit the target',
   title: 'Nouvelle tâche',
+  status: 'Not started',
   pomodoroCount: 1,
-  pomodoroList: [
-    {
-      status: 'Not started',
-      currentTime: 0,
-      duration: 1500,
-      isCompleted: false,
-    },
-  ],
+  pomodoroList: [0],
+  statusEmoji: '🏁',
 });
 
 const WORKDAY_TASK_LIMIT = 6;
@@ -61,16 +39,16 @@ export const WorkdayStore = signalStore(
     const isButtonDisplayed = computed(() => taskCount() < WORKDAY_TASK_LIMIT);
     const hasNoTaskPlanned = computed(() => taskCount() === 0);
     const hasTaskPlanned = computed(() => taskCount() > 0);
-    const isInEditMode = computed(() => state.mode() === 'edit');
-    const isInExecutionMode = computed(() => state.mode() === 'exectution');
+    const isEditMode = computed(() => state.mode() === 'edit');
+    const isExecutionMode = computed(() => state.mode() === 'exectution');
 
     return {
       taskCount,
       isButtonDisplayed,
       hasNoTaskPlanned,
       hasTaskPlanned,
-      isInEditMode,
-      isInExecutionMode,
+      isEditMode,
+      isExecutionMode,
     };
   }),
   withMethods((store) => ({
