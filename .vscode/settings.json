@@ -1,0 +1,34 @@
+{
+  // Use Prettier as the default formatter for HTML files
+  "[html]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    // Apply ESLint fixes on save for HTML files
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": "always"
+    },
+    // Disable format on save for HTML files
+    "editor.formatOnSave": false
+  },
+  // Use ESLint as the default formatter for TypeScript files
+  "[typescript]": {
+    "editor.defaultFormatter": "dbaeumer.vscode-eslint",
+    "editor.codeActionsOnSave": {
+      // Apply ESLint fixes on save for TypeScript files
+      "source.fixAll.eslint": "explicit",
+      // Organize imports on save for TypeScript files
+      "source.organizeImports": "explicit",
+      // Add missing imports in current file on save
+      "source.addMissingImports": "explicit",
+      // Make distinction between import vs import type 
+      "typescript.preferences.preferTypeOnlyAutoImports": "explicit",
+    },
+    // Disable format on save for TypeScript files
+    "editor.formatOnSave": false
+  },
+  // Apply ESLint fixes on save for both HTML and TypeScript files
+  "[html][typescript]": {
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": "explicit"
+    }
+  }
+}
