@@ -3,11 +3,27 @@
     <div class="col-md-4"></div>
     <div class="col-md-4 text-center">
       <h6 class="mb-2">Working Day</h6>
-      <input type="date" class="form-control" [value]="store.date()" (change)="store.updateDate($event)" />
+      <input type="date" class="form-control" [value]="store.date()" (change)="store.updateDate($event)" [disabled]="store.isInExecutionMode()">
+
+      <!-- Progress bar centered under the date field (only in edit mode) -->
+      @if(store.isInExecutionMode()) {
+      <div class="d-flex flex-column align-items-center mt-2">
+        <div class="progress w-100" style= "height: 1rem" data-testid="workdayProgress">
+          <progress
+            class="progress-bar bg-success"
+            [style.width.%]="store.progress()"
+            [attr.value]="store.progress()"
+            max="100">
+            {{ store.progress() }}%
+          </progress>
+        </div>
+        <p class="small text-muted mt-2 text-center w-100">{{store.progress() / 10}} secondes sont passées</p>
+      </div>
+      }
     </div>
-    @if(store.hasTaskPlanned()) {
+    @if(store.hasTaskPlanned() && store.isInEditMode()) {
     <div class="col-md-4 text-end mt-3 mt-md-0" data-testid="start-workday-button">
-      <button class="btn btn-success rounded-pill px-4 py-2 fw-bold">
+      <button class="btn btn-success rounded-pill px-4 py-2 fw-bold" (click)="store.startWorkday()">
         Start the work day
       </button>
     </div>
