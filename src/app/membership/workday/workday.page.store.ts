@@ -1,5 +1,6 @@
 import { computed, DestroyRef, inject } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { Workday } from '@app/core/entity/workday';
 import {
   patchState,
   signalStore,
@@ -28,8 +29,6 @@ const getEmptyTask = (): Task => ({
   statusEmoji: '🏁',
 });
 
-const WORKDAY_TASK_LIMIT = 6;
-
 export const WorkdayStore = signalStore(
   withState<WorkdayState>({
     date: '2019-02-28',
@@ -43,7 +42,7 @@ export const WorkdayStore = signalStore(
   })),
   withComputed((state) => {
     const taskCount = computed(() => state.taskList().length);
-    const isButtonDisplayed = computed(() => taskCount() < WORKDAY_TASK_LIMIT);
+    const isButtonDisplayed = computed(() => taskCount() < Workday.MAX_TASKS_PER_DAY);
     const hasNoTaskPlanned = computed(() => taskCount() === 0);
     const hasTaskPlanned = computed(() => taskCount() > 0);
     const isEditMode = computed(() => state.mode() === 'edit');

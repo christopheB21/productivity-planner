@@ -9,6 +9,8 @@ interface WorkdayProps {
 }
 
 export class Workday extends Entity<WorkdayProps> {
+    static readonly MAX_TASKS_PER_DAY = 6;
+
     static create(props: WorkdayProps, date: string): Workday {
         //Validation
         return new Workday(props, date);
@@ -24,22 +26,26 @@ export class Workday extends Entity<WorkdayProps> {
         return Workday.create(emptyPros, now);
     }
 
-}
-
-
-export class Interval extends ValueObject<IntervalProps> {
-  static create(value: IntervalName): Interval {
-    if (!this.isValid(value)) {
-      throw new Error('A valid interval name is required.');
+    get taskCount(): number {
+        return this.props.taskList.length;
     }
-    return new Interval({ value });
-  }
 
-  private isValid(value: unknown): value is IntervalName {
-    return IntervalList.includes(value);
-  }
-
-  get value(): IntervalName {
-    return this.props.value;
-  }
 }
+
+
+// export class Interval extends ValueObject<IntervalProps> {
+//   static create(value: IntervalName): Interval {
+//     if (!this.isValid(value)) {
+//       throw new Error('A valid interval name is required.');
+//     }
+//     return new Interval({ value });
+//   }
+
+//   private isValid(value: unknown): value is IntervalName {
+//     return IntervalList.includes(value);
+//   }
+
+//   get value(): IntervalName {
+//     return this.props.value;
+//   }
+// }
