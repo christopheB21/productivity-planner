@@ -5,14 +5,15 @@
     </select>
     <input #taskTitle class="form-control flex-grow-1 fs-5 border-0" [value]="task().title"
         (input)="updateTitle(taskTitle.value)" [attr.data-testid]="`task-input-${index()}`" />
-<div class="d-flex align-items-center ms-3">
-        <select class="form-select w-auto me-3" #taskPomodoroCount
-            (change)="updatePomodoroCount(taskPomodoroCount.value) ">
-            <option selected value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
+
+    <div class="d-flex align-items-center ms-3">
+        <select class="form-select w-auto me-3" #taskPomodoroCount [value]="task().pomodoroCount"
+            (change)="updatePomodoroCount(taskPomodoroCount.value)">
+            <option [value]="1">1</option>
+            <option [value]="2">2</option>
+            <option [value]="3">3</option>
+            <option [value]="4">4</option>
+            <option [value]="5">5</option>
         </select>
         <button class="btn btn-sm">⏸</button>
         <button class="btn btn-sm">⏸</button>
@@ -20,7 +21,7 @@
         <button class="btn btn-sm">⏸</button>
         <button class="btn btn-sm">⏸</button>
         <span class="mx-3 fs-5">0</span>
-        <span>🏁</span>
+        <span>{{ task().statusEmoji }}</span>
     </div>
 
     <button class="btn btn-link text-muted ms-3" [attr.data-testid]="`task-remove-${index()}`"

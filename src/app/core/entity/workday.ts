@@ -1,35 +1,185 @@
-import { TaskList } from '@app/membership/workday/task.model';
+import { getActivePomodoroIndex, getActiveTask, getActiveTaskIndex, getTaskEmojiStatus, isTaskCompleted, Task, TaskList } from '@app/membership/workday/task.model';
 import { Entity } from '../domain/entity.class';
 
 interface WorkdayProps {
-      // date: string;
       taskList: TaskList;
-      progress: number;
       mode: 'edit' | 'execution';
 }
 
 export class Workday extends Entity<WorkdayProps> {
+    static readonly MAX_POMODORO_DURATION_IN_SEC = 5; 
     static readonly MAX_TASKS_PER_DAY = 6;
+    override readonly _id;
 
-    static create(props: WorkdayProps, date: string): Workday {
-        //Validation
-        return new Workday(props, date);
+    private constructor(props: WorkdayProps, date: string) {
+        super(props, date);
+        this._id = date;
     }
 
     static createEmpty(): Workday {
-        const now = new Date().toLocaleString();
-        const emptyPros: WorkdayProps = {
-            taskList: [],
-            progress: 0,
-            mode: 'edit',
-        };
-        return Workday.create(emptyPros, now);
+        const date = Date.now();
+        const taskList: TaskList = [
+            {
+                type: 'Hit the target',
+                title: 'Nouvelle tâche',
+                status: 'Not started',
+                pomodoroCount: 1,
+                pomodoroList: [0],
+                statusEmoji: '🏁',
+            },
+        ]
+        const mode = 'edit';
+        const emptyPros: WorkdayProps = { taskList, mode };
+
+        return new Workday(emptyPros, date.toString());
+    }
+
+    createEmptyAtDate(date: string): Workday {
+        const workday = Workday.createEmpty();
+        return new Workday(workday.props, date);
+    }
+
+    /* Getters */
+
+    get date(): string {
+        return this._id;
+    }
+
+    get taskList(): TaskList {
+        return this.props.taskList;
     }
 
     get taskCount(): number {
         return this.props.taskList.length;
     }
 
+    get hasTaskPlanned(): boolean {
+        return this.taskCount > 0;
+    }
+
+    get hasNoTaskPlanned(): boolean {
+        return this.taskCount === 0;
+    }
+
+    get isEditMode(): boolean {
+        return this.props.mode === 'edit';
+    }
+
+    get isExecutionMode(): boolean {
+        return this.props.mode === 'execution';
+    }
+
+    get isWorkdayCompleted(): boolean {
+        return this.taskList.every(task => {
+            return isTaskCompleted(task)
+        });
+    }
+
+    get canAddTask(): boolean {
+        return this.taskCount < Workday.MAX_TASKS_PER_DAY;
+  }
+
+/* Read-only methods */
+    isTaskCompleted(task: Task): boolean {
+        if (this.isGetThingsDone(task)) {
+            return task.status === 'Done';
+        }
+        return false;
+    }
+
+    isGetThingsDone(task: Task): boolean {
+        return task.type === 'Get things done';
+    }
+
+    isPomodoroCompleted(pomodoro: number): boolean {
+      return pomodoro === Workday.MAX_POMODORO_DURATION_IN_SEC;
+    }
+
+    static getEmptyTask(): Task {
+        return {
+            type: 'Hit the target',
+            title: 'Nouvelle tâche',
+            status: 'Not started',
+            pomodoroCount: 1,
+            pomodoroList: [0],
+            statusEmoji: '🏁',
+        }
+    }
+/* Setters */
+    setExecutionMode(): Workday {
+        if (this.isExecutionMode) {
+            throw new Error('Workday is already in execution mode.');
+        }
+        this.props.mode = 'execution';
+        return this;
+    }
+
+
+    addEmptyTask(): Workday {
+        if (!this.canAddTask) {
+        throw new Error('Maximum number of tasks reached for the day.');
+        }
+
+        const newTaskList = this.props.taskList.slice();
+        newTaskList.push(Workday.getEmptyTask());
+
+        const newProps: WorkdayProps = {
+        ...this.props,
+        taskList: newTaskList,
+        };
+
+        return new Workday(newProps, this._id);
+    }
+
+    updateTask(index: number, updatedTask: Task): Workday {
+        if (index < 0 || index >= this.props.taskList.length) {
+            throw new Error(`Cannot update task at index ${index}.`);
+        }
+
+        const newTaskList = this.props.taskList.slice();
+        newTaskList[index] = updatedTask;
+
+        const newProps: WorkdayProps = {
+        ...this.props,
+        taskList: newTaskList,
+        };
+
+        return new Workday(newProps, this._id);
+    }
+
+    removeTask(index: number): Workday {
+        if (index < 0 || index >= this.props.taskList.length) {
+            throw new Error(`Cannot remove task at index ${index}.`);
+        }
+
+        const newTaskList = this.props.taskList.slice();
+        newTaskList.splice(index, 1);
+
+        const newProps: WorkdayProps = {
+        ...this.props,
+        taskList: newTaskList,
+        };
+
+        return new Workday(newProps, this._id);
+    }
+
+    tick(): Workday {
+        const task = getActiveTask(this.taskList);
+        const taskIndex = getActiveTaskIndex(this.taskList);
+        if (!task) {
+            throw new Error('No active task found');
+        }
+
+        const pomodoroIndex = getActivePomodoroIndex(task);
+
+        if (pomodoroIndex === -1) {
+            throw new Error('No active pomodoro found');
+        }
+
+        this.taskList[taskIndex].pomodoroList[pomodoroIndex]++;
+        this. taskList[taskIndex].statusEmoji = getTaskEmojiStatus(this.taskList[taskIndex]);
+        return this;
+    }
 }
 
 

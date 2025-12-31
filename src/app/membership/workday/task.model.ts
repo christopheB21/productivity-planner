@@ -7,8 +7,7 @@ export interface Task {
   statusEmoji: string;
 }
 
-// TODO: 10 secs for test only
-export const MAXIMUM_POMODORO_DURATION = 5; // 25 minutes
+export const MAXIMUM_POMODORO_DURATION = 5;
 
 export type TaskList = Task[];
 export type TaskType = 'Hit the target' | 'Get things done';
@@ -78,7 +77,7 @@ export function isPomodoroNotStarted(pomodoro: number): boolean {
   return pomodoro === 0;
 }
 
-export function getActivePomodoroIndex(task: Task): number {
+export function getActivePomodoroIndex(task: Task): number | -1 {
   return task.pomodoroList.findIndex(
     (pomodoro) => !isPomodoroCompleted(pomodoro)
   );
@@ -97,6 +96,24 @@ export function createPomodoroList(count: PomodoroCount): PomodoroList {
     case 5:
       return [0, 0, 0, 0, 0];
   }
+}
+export function getPomodoroEmojiStatus(pomodoro: number): string {
+  if (isPomodoroCompleted(pomodoro)) {
+    return '☑️';
+  }
+
+  if (isPomodoroInProgress(pomodoro)) {
+    return '🔄';
+  }
+
+  // Not started
+  return '⏸️';
+}
+
+export function getPomodoroListEmojiStatus(
+  pomodoroList: PomodoroList
+): string[] {
+  return pomodoroList.map((pomodoro) => getPomodoroEmojiStatus(pomodoro));
 }
 
 /* View model methods */
